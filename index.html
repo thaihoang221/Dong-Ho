@@ -1,1 +1,60 @@
-"<h1>Dong Ho</h1>" 
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Thời gian</title>
+    <style>
+        body {
+            background-color: black;
+            color: #ccc;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            padding-top: 100px;
+        }
+        #clock {
+            font-size: 60px;
+            color: #dcdcff;
+            text-shadow: 0 0 10px #ccc;
+        }
+        #date {
+            font-size: 40px;
+            margin-top: 20px;
+            color: #dcdcff;
+            text-shadow: 0 0 10px #ccc;
+        }
+        #message {
+            margin-top: 50px;
+            font-size: 18px;
+            color: #aaffcc;
+        }
+        #sub-message {
+            font-size: 14px;
+            color: #ccc;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="clock"></div>
+    <div id="date"></div>
+    <div id="message">Hello word</div>
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const time = now.toLocaleTimeString('vi-VN', { hour12: false });
+            const weekday = now.toLocaleDateString('vi-VN', { weekday: 'long' });
+            const date = now.toLocaleDateString('vi-VN');
+            document.getElementById("clock").textContent = time;
+            document.getElementById("date").textContent = `${capitalizeFirstLetter(weekday)}, ${date}`;
+        }
+
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
+        setInterval(updateTime, 1000);
+        updateTime();
+    </script>
+</body>
+</html>
+
