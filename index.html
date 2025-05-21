@@ -2,50 +2,130 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Thời gian</title>
+    <title>Giới thiệu bản thân</title>
     <style>
+        /* Reset & layout */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
         body {
-            background-color: black;
-            color: #ccc;
+            height: 100vh;
+            background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
             font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        .container {
+            backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            width: 90%;
+            max-width: 800px;
             text-align: center;
-            padding-top: 100px;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
         }
-        #clock {
-            font-size: 60px;
-            color: #dcdcff;
-            text-shadow: 0 0 10px #ccc;
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid #00ffff;
+            margin-bottom: 20px;
         }
-        #date {
-            font-size: 40px;
-            margin-top: 20px;
-            color: #dcdcff;
-            text-shadow: 0 0 10px #ccc;
+
+        .name {
+            font-size: 32px;
+            font-weight: bold;
+            color: #00ffff;
+            margin-bottom: 10px;
         }
-        #message {
-            margin-top: 50px;
+
+        .typing {
+            font-size: 20px;
+            margin-bottom: 20px;
+            height: 30px;
+            color: #ffddcc;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 2px solid #ffddcc;
+            animation: typing 4s steps(40, end), blink 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent }
+        }
+
+        .intro {
             font-size: 18px;
+            line-height: 1.6;
+            color: #dcdcff;
+            margin-top: 10px;
+        }
+
+        #clock, #date {
+            font-size: 20px;
+            margin-top: 20px;
             color: #aaffcc;
         }
-        #sub-message {
+
+        .footer {
+            margin-top: 40px;
             font-size: 14px;
-            color: #ccc;
-            margin-top: 10px;
+            color: #888;
         }
     </style>
 </head>
 <body>
-    <div id="clock"></div>
-    <div id="date"></div>
-    <div id="message">Hello word</div>
+    <div class="container">
+        <img src="https://i.imgur.com/9G1pZDl.png" alt="Avatar" class="avatar">
+        <div class="name">Doãn Thái Hoàng</div>
+        <div class="typing" id="typing"></div>
+        <div class="intro">
+            Tôi là một lập trình viên đam mê công nghệ, yêu thích khám phá và học hỏi những điều mới. <br>
+            Với kỹ năng về HTML, CSS, JavaScript, Java và Spring Boot, tôi mong muốn xây dựng những sản phẩm hữu ích, hiện đại và thân thiện với người dùng.<br><br>
+            📧 Liên hệ: <strong>doanthaihoang2201@gmail.com</strong>
+        </div>
+        <div id="clock"></div>
+        <div id="date"></div>
+        <div class="footer">© 2025 Doãn Thái Hoàng. All rights reserved.</div>
+    </div>
+
     <script>
+        // Hiệu ứng gõ chữ
+        const text = "Lập trình viên | Thiết kế Web | Java Developer | Freelancer";
+        let i = 0;
+        const typingDiv = document.getElementById("typing");
+
+        function typeEffect() {
+            if (i < text.length) {
+                typingDiv.textContent += text.charAt(i);
+                i++;
+                setTimeout(typeEffect, 80);
+            }
+        }
+        typeEffect();
+
+        // Đồng hồ thời gian thực
         function updateTime() {
             const now = new Date();
             const time = now.toLocaleTimeString('vi-VN', { hour12: false });
             const weekday = now.toLocaleDateString('vi-VN', { weekday: 'long' });
             const date = now.toLocaleDateString('vi-VN');
             document.getElementById("clock").textContent = time;
-            document.getElementById("date").textContent = `${capitalizeFirstLetter(weekday)}, ${date}`;
+            document.getElementById("date").textContent = capitalizeFirstLetter(weekday) + ', ' + date;
         }
 
         function capitalizeFirstLetter(string) {
@@ -57,4 +137,3 @@
     </script>
 </body>
 </html>
-
